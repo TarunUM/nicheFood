@@ -89,6 +89,11 @@ public class FoodServicesImpl implements FoodServices {
         if (totalItemsAdded == 0){
             throw new FoodExceptions("All food items already exists", HttpStatus.BAD_REQUEST);
         }
+        if (totalItemsAdded == foodList.size()){
+            return "All items added successfully";
+        }
+
+        // Return JSON object
         return "{ \nTotal items added: " + totalItemsAdded + ",\n" +
                 "Food items already exists: " + (foodList.size()-totalItemsAdded) + ",\n" +
                 "These items can not be added " + foodNames +" \n}";
