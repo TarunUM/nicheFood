@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -20,20 +21,20 @@ public class Food {
     private String hotelId;
     private String name;
     private String description;
-    private float price;
+    private double price;
     private String cuisine;
     private String ingredients;
     @Lob
-    private ArrayList<String> image;
+    private List<String> image;
     private boolean availability;
 
     public Food(String hotelId,
                 String name,
                 String description,
-                float price,
+                double price,
                 String cuisine,
                 String ingredients,
-                ArrayList<String> image,
+                List<String> image,
                 boolean availability) {
         this.id = UUID.randomUUID().toString();
         this.hotelId = hotelId;

@@ -7,11 +7,13 @@ import java.util.Optional;
 
 public interface FoodServices {
     List<Food> getFoodItems();
-    Optional<Food> getFoodItemById(String id);
-    Optional<Food> getFoodItemByHotelId(String hotelId);
-    Optional<Food> getFoodItemByCuisine(String cuisine);
-    boolean getFoodItemByAvailability(boolean availability);
+    Food getFoodItemById(String id);
+    Food getFoodItemByName(String name);
+    List<Food> getFoodItemByHotelId(String hotelId);
+    List<Food> getFoodItemByCuisine(String cuisine);
+    List<Food> getFoodItemByAvailability(boolean availability);
     Food addFoodItem(Food food);
-    Optional<Food> updateFoodItem(Food food);
+    String addFoodItemsList(List<Food> foodList);
+    Food updateFoodItem(String id,Food food);
     void deleteFoodItem(String id);
 }
