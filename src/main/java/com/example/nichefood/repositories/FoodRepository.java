@@ -13,15 +13,15 @@ public interface FoodRepository
         extends JpaRepository<Food,String> {
 
     @Query("SELECT f FROM Food f WHERE f.name LIKE %?1%")
-    Optional<Food> findByFoodName(String name);
+    Optional<List<Food>> findByFoodName(String name);
 
-    @Query("SELECT f FROM Food f WHERE f.name = ?1 AND f.hotelId = ?2")
+    @Query("SELECT f FROM Food f WHERE f.name = ?1 AND f.hotel_id = ?2")
     Optional<Food> findByFoodAndHotelId(String foodName, String hotelId);
 
     @Query("SELECT f FROM Food f WHERE f.id = ?1")
     Optional<Food> findByHotel(String hotelId);
 
-    @Query("SELECT f FROM Food f WHERE f.hotelId = ?1")
+    @Query("SELECT f FROM Food f WHERE f.hotel_id = ?1")
     List<Food> findByHotelId(String hotelId);
 
     @Query("SELECT f FROM Food f WHERE f.cuisine = ?1")

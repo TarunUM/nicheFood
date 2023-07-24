@@ -31,7 +31,7 @@ public class FoodController {
     }
 
     @GetMapping(params = "name")
-    public ResponseEntity<Food> getFoodItemByName(@RequestParam(name = "name") String name) {
+    public ResponseEntity<List<Food>> getFoodItemByName(@RequestParam(name = "name") String name) {
         return ResponseEntity.ok().body(foodServices.getFoodItemByName(name));
     }
 

@@ -1,9 +1,6 @@
 package com.example.nichefood.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Lob;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,11 +11,14 @@ import java.util.UUID;
 @Getter
 @Setter
 @Entity
-@Table
+@Table(name = "food")
 public class Food {
     @Id
+    @Column(name = "id", nullable = false, updatable = false, unique = true)
     private String id;
-    private String hotelId;
+    @Column(name = "hotel_id", nullable = false)
+    private String hotel_id;
+    @Column(name = "name", nullable = false)
     private String name;
     private String description;
     private double price;
@@ -26,9 +26,10 @@ public class Food {
     private String ingredients;
     @Lob
     private List<String> image;
+    @Column(name = "availability", nullable = false, columnDefinition = "boolean default true")
     private boolean availability;
 
-    public Food(String hotelId,
+    public Food(String hotel_id,
                 String name,
                 String description,
                 double price,
@@ -37,7 +38,7 @@ public class Food {
                 List<String> image,
                 boolean availability) {
         this.id = UUID.randomUUID().toString();
-        this.hotelId = hotelId;
+        this.hotel_id = hotel_id;
         this.name = name;
         this.description = description;
         this.price = price;
@@ -49,7 +50,7 @@ public class Food {
 
     public Food(Food food) {
         this.id = UUID.randomUUID().toString();
-        this.hotelId = food.hotelId;
+        this.hotel_id = food.hotel_id;
         this.name = food.name;
         this.description = food.description;
         this.price = food.price;

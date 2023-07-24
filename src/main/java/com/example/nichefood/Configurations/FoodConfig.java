@@ -50,7 +50,7 @@ public class FoodConfig {
             );
 
 
-            foodRepository.saveAll(
+            foodRepository.saveAllAndFlush(
                     List.of(food1, food2, food3)
             );
         };

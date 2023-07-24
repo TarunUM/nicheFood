@@ -8,7 +8,7 @@ import java.util.Optional;
 public interface FoodServices {
     List<Food> getFoodItems();
     Food getFoodItemById(String id);
-    Food getFoodItemByName(String name);
+    List<Food> getFoodItemByName(String name);
     List<Food> getFoodItemByHotelId(String hotelId);
     List<Food> getFoodItemByCuisine(String cuisine);
     List<Food> getFoodItemByAvailability(boolean availability);

@@ -4,16 +4,13 @@ import com.example.nichefood.exceptions.FoodExceptions;
 import com.example.nichefood.models.Food;
 import com.example.nichefood.repositories.FoodRepository;
 import com.example.nichefood.services.FoodServices;
-import com.fasterxml.jackson.databind.util.JSONPObject;
 import jakarta.persistence.Transient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class FoodServicesImpl implements FoodServices {
@@ -39,8 +36,10 @@ public class FoodServicesImpl implements FoodServices {
     }
 
     @Override
-    public Food getFoodItemByName(String name) {
-        return null;
+    public List<Food> getFoodItemByName(String name) {
+        return foodRepository.findByFoodName(name).orElseThrow(
+                () -> new FoodExceptions("Food not found", HttpStatus.NOT_FOUND)
+        );
     }
 
     @Override
@@ -66,7 +65,7 @@ public class FoodServicesImpl implements FoodServices {
 
     @Override
     public Food addFoodItem(Food food) {
-        if (foodRepository.findByFoodAndHotelId(food.getName(), food.getHotelId()).isPresent()) {
+        if (foodRepository.findByFoodAndHotelId(food.getName(), food.getHotel_id()).isPresent()) {
             throw new FoodExceptions("Food already exists", HttpStatus.BAD_REQUEST);
         }
         Food save = new Food(food);
@@ -78,7 +77,7 @@ public class FoodServicesImpl implements FoodServices {
         int totalItemsAdded = 0;
         List<String> foodNames = new ArrayList<>();
         for (Food food: foodList){
-            if (foodRepository.findByFoodAndHotelId(food.getName(), food.getHotelId()).isPresent()) {
+            if (foodRepository.findByFoodAndHotelId(food.getName(), food.getHotel_id()).isPresent()) {
                 foodNames.add(food.getName());
             } else {
                 Food save = new Food(food);
@@ -107,7 +106,7 @@ public class FoodServicesImpl implements FoodServices {
         if (oldFood == null) {
             throw new FoodExceptions("Food not found", HttpStatus.NOT_FOUND);
         }
-        oldFood.setHotelId(food.getHotelId());
+        oldFood.setHotel_id(food.getHotel_id());
         oldFood.setName(food.getName());
         oldFood.setDescription(food.getDescription());
         oldFood.setPrice(food.getPrice());
