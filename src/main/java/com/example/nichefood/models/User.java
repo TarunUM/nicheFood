@@ -1,9 +1,6 @@
 package com.example.nichefood.models;
-
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import lombok.Getter;
-import lombok.Setter;
+import jakarta.persistence.*;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -11,11 +8,16 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 @Getter
 @Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
+@Table
 public class User implements UserDetails {
+    @Id
     private String id;
     private String email;
     private String password;
@@ -23,18 +25,8 @@ public class User implements UserDetails {
     private String phone;
     private String address;
     @Enumerated(EnumType.STRING)
-    private Role role = Role.USER;
+    private Role role = Role.ADMIN;
     private Date createdAt;
-
-    public User(String email, String password, String name, String phone, String address) {
-        this.id = UUID.randomUUID().toString();
-        this.email = email;
-        this.password = password;
-        this.name = name;
-        this.phone = phone;
-        this.address = address;
-        this.createdAt = new Date();
-    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -43,7 +35,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return null;
+        return this.email;
     }
 
     @Override
@@ -64,5 +56,19 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return false;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id='" + id + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", name='" + name + '\'' +
+                ", phone='" + phone + '\'' +
+                ", address='" + address + '\'' +
+                ", role=" + role +
+                ", createdAt=" + createdAt +
+                '}';
     }
 }

@@ -1,30 +1,31 @@
 package com.example.nichefood.controllers;
 
+import com.example.nichefood.services.implementations.AuthServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("/api/v1/auth")
 @RestController
 @RequiredArgsConstructor
 public class AuthenticationController {
-    @PostMapping("/register")
+
+    private final AuthServiceImpl authService;
+
+    @GetMapping("/register")
     public ResponseEntity<AuthenticationResponse> register(
             @RequestBody RegisterRequest request
     ) {
         // todo: implement register
-        return null;
+        return ResponseEntity.ok(authService.register(request));
     }
 
-    @PostMapping("/login")
+    @GetMapping("/login")
     public ResponseEntity<AuthenticationResponse> login(
             @RequestBody loginRequest request
     ) {
         // todo: implement login
-        return null;
+        return ResponseEntity.ok(authService.login(request));
     }
 
 }

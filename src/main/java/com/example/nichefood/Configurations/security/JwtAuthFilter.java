@@ -6,6 +6,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.autoconfigure.security.SecurityProperties;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,6 +20,7 @@ import java.io.IOException;
 
 @Component
 @RequiredArgsConstructor
+@Order(SecurityProperties.DEFAULT_FILTER_ORDER)
 public class JwtAuthFilter extends OncePerRequestFilter {
 
     private final JwtService jwtService;
@@ -27,7 +30,6 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     protected void doFilterInternal(@NonNull HttpServletRequest request,
                                     @NonNull HttpServletResponse response,
                                     @NonNull FilterChain filterChain) throws ServletException, IOException {
-
         final String authorization = request.getHeader("Authorization");
         final String jwt;
         final String username;
@@ -37,6 +39,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         }
         jwt = authorization.substring(7);
         username = jwtService.extractUsername(jwt); // todo : extract username from authorization;
+
 
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 
