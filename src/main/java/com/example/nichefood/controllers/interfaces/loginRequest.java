@@ -1,4 +1,4 @@
-package com.example.nichefood.controllers;
+package com.example.nichefood.controllers.interfaces;
 
 import lombok.Builder;
 import lombok.Data;

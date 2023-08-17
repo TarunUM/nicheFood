@@ -1,15 +1,15 @@
 package com.example.nichefood.models;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-@Getter
-@Setter
+@Data
+@RequiredArgsConstructor
+@Builder
 @Entity
 @Table(name = "food")
 public class Food {
@@ -58,9 +58,5 @@ public class Food {
         this.ingredients = food.ingredients;
         this.image = food.image;
         this.availability = food.availability;
-    }
-
-    public Food() {
-
     }
 }

@@ -1,5 +1,8 @@
 package com.example.nichefood.controllers;
 
+import com.example.nichefood.controllers.interfaces.AuthenticationResponse;
+import com.example.nichefood.controllers.interfaces.RegisterRequest;
+import com.example.nichefood.controllers.interfaces.loginRequest;
 import com.example.nichefood.services.implementations.AuthServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

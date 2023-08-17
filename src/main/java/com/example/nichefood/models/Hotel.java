@@ -1,15 +1,15 @@
 package com.example.nichefood.models;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
-@Getter
-@Setter
+@Data
+@RequiredArgsConstructor
+@Builder
 @Entity
 @Table(name = "hotels", uniqueConstraints = {
         @UniqueConstraint(columnNames = "hotel_id", name = "uniqueIdConstraint"),
@@ -64,7 +64,4 @@ public class Hotel {
         this.createdAt = new Date();
     }
 
-    public Hotel() {
-
-    }
 }
