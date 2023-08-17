@@ -14,6 +14,7 @@ import java.util.*;
         @UniqueConstraint(columnNames = "hotel_name", name = "uniqueNameConstraint"),
         @UniqueConstraint(columnNames = "email", name = "uniqueEmailConstraint"),
 })
+@AllArgsConstructor
 public class Hotel {
     @Id
     @Column(name = "hotel_id", nullable = false, updatable = false)
@@ -27,27 +28,8 @@ public class Hotel {
     private String description;
     @Lob
     private List<String> image;
-    private Date createdAt;
+    private Date createdAt = new Date();
 
-    public Hotel(String hotel_name,
-                 String address,
-                 String phone,
-                 String email,
-                 double rating,
-                 String city,
-                 String description,
-                 List<String> image) {
-        this.hotel_id = UUID.randomUUID().toString();
-        this.hotel_name = hotel_name;
-        this.address = address;
-        this.phone = phone;
-        this.email = email;
-        this.rating = rating;
-        this.city = city;
-        this.description = description;
-        this.image = image;
-        this.createdAt = new Date();
-    }
 
     public Hotel(String hotel_id,
                  String hotel_name,
@@ -83,16 +65,4 @@ public class Hotel {
         this.createdAt = new Date();
     }
 
-    public Hotel(String hotel_id, String hotel_name, String address, String phone, String email, double rating, String city, String description, List<String> image, Date createdAt) {
-        this.hotel_id = hotel_id;
-        this.hotel_name = hotel_name;
-        this.address = address;
-        this.phone = phone;
-        this.email = email;
-        this.rating = rating;
-        this.city = city;
-        this.description = description;
-        this.image = image;
-        this.createdAt = new Date();
-    }
 }

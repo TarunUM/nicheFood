@@ -3,11 +3,9 @@ package com.example.nichefood.services.implementations;
 import com.example.nichefood.exceptions.FoodExceptions;
 import com.example.nichefood.models.Food;
 import com.example.nichefood.repositories.FoodRepository;
-import com.example.nichefood.repositories.HotelRepository;
 import com.example.nichefood.services.FoodServices;
 import jakarta.persistence.Transient;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 

@@ -14,7 +14,7 @@ import java.util.List;
 public class FoodConfig {
 
     @Bean
-    CommandLineRunner commandLineRunner(FoodRepository foodRepository, HotelRepository hotelRepository){
+    CommandLineRunner commandLineRunner(FoodRepository foodRepository){
         return args -> {
             Food food1 = new Food(
                     "81f885ee-29dc-46ad-90ae-43968e709a52",
