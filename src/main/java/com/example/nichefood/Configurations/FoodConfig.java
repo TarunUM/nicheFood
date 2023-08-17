@@ -2,7 +2,6 @@ package com.example.nichefood.Configurations;
 
 import com.example.nichefood.models.Food;
 import com.example.nichefood.repositories.FoodRepository;
-import com.example.nichefood.repositories.HotelRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
