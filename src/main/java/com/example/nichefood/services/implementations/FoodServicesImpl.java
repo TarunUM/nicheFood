@@ -3,8 +3,10 @@ package com.example.nichefood.services.implementations;
 import com.example.nichefood.exceptions.FoodExceptions;
 import com.example.nichefood.models.Food;
 import com.example.nichefood.repositories.FoodRepository;
+import com.example.nichefood.repositories.HotelRepository;
 import com.example.nichefood.services.FoodServices;
 import jakarta.persistence.Transient;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -13,14 +15,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class FoodServicesImpl implements FoodServices {
 
     private final FoodRepository foodRepository;
-
-    @Autowired
-    public FoodServicesImpl(FoodRepository foodRepository) {
-        this.foodRepository = foodRepository;
-    }
 
     @Override
     public List<Food> getFoodItems() {
@@ -44,10 +42,10 @@ public class FoodServicesImpl implements FoodServices {
 
     @Override
     public List<Food> getFoodItemByHotelId(String hotelId) {
-        if (foodRepository.findByHotel(hotelId).isPresent()) {
+        if (foodRepository.findByHotel(hotelId).isEmpty()) {
             throw new FoodExceptions("Hotel not found", HttpStatus.NOT_FOUND);
         }
-        return foodRepository.findByHotelId(hotelId);
+        return foodRepository.findByHotel(hotelId);
     }
 
     @Override
@@ -97,7 +95,6 @@ public class FoodServicesImpl implements FoodServices {
                 "Food items already exists: " + (foodList.size()-totalItemsAdded) + ",\n" +
                 "These items can not be added " + foodNames +" \n}";
     }
-
 
     @Override
     @Transient

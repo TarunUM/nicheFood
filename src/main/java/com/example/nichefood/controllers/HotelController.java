@@ -22,8 +22,9 @@ public class HotelController {
         return ResponseEntity.ok(hotelServices.getAllHotels());
     }
 
-    @GetMapping(params = "hotel_id")
-    public ResponseEntity<Hotel> getHotelById(String hotel_id) {
+    // create hotel_id as a path variable
+    @GetMapping("/{hotel_id}")
+    public ResponseEntity<Hotel> getHotelById(@PathVariable String hotel_id) {
         return ResponseEntity.ok(hotelServices.getHotelById(hotel_id));
     }
 

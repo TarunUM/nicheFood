@@ -3,9 +3,7 @@ package com.example.nichefood.models;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Data
 @RequiredArgsConstructor
@@ -51,6 +49,27 @@ public class Hotel {
         this.createdAt = new Date();
     }
 
+    public Hotel(String hotel_id,
+                 String hotel_name,
+                 String address,
+                 String phone,
+                 String email,
+                 double rating,
+                 String city,
+                 String description,
+                 List<String> image) {
+        this.hotel_id = hotel_id;
+        this.hotel_name = hotel_name;
+        this.address = address;
+        this.phone = phone;
+        this.email = email;
+        this.rating = rating;
+        this.city = city;
+        this.description = description;
+        this.image = image;
+        this.createdAt = new Date();
+    }
+
     public Hotel(Hotel hotel){
         this.hotel_id = UUID.randomUUID().toString();
         this.hotel_name = hotel.getHotel_name();
@@ -64,4 +83,16 @@ public class Hotel {
         this.createdAt = new Date();
     }
 
+    public Hotel(String hotel_id, String hotel_name, String address, String phone, String email, double rating, String city, String description, List<String> image, Date createdAt) {
+        this.hotel_id = hotel_id;
+        this.hotel_name = hotel_name;
+        this.address = address;
+        this.phone = phone;
+        this.email = email;
+        this.rating = rating;
+        this.city = city;
+        this.description = description;
+        this.image = image;
+        this.createdAt = new Date();
+    }
 }

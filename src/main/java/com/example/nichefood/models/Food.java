@@ -12,20 +12,26 @@ import java.util.UUID;
 @Builder
 @Entity
 @Table(name = "food")
+@AllArgsConstructor
 public class Food {
     @Id
-    @Column(name = "id", nullable = false, updatable = false, unique = true)
+    @Column(name = "food_id", nullable = false, updatable = false, unique = true)
     private String id;
+
     @Column(name = "hotel_id", nullable = false)
     private String hotel_id;
+
     @Column(name = "name", nullable = false)
     private String name;
+
     private String description;
     private double price;
     private String cuisine;
     private String ingredients;
+
     @Lob
     private List<String> image;
+
     @Column(name = "availability", nullable = false, columnDefinition = "boolean default true")
     private boolean availability;
 
@@ -48,15 +54,15 @@ public class Food {
         this.availability = availability;
     }
 
-    public Food(Food food) {
+    public Food(Food food){
         this.id = UUID.randomUUID().toString();
-        this.hotel_id = food.hotel_id;
-        this.name = food.name;
-        this.description = food.description;
-        this.price = food.price;
-        this.cuisine = food.cuisine;
-        this.ingredients = food.ingredients;
-        this.image = food.image;
-        this.availability = food.availability;
+        this.hotel_id = food.getHotel_id();
+        this.name = food.getName();
+        this.description = food.getDescription();
+        this.price = food.getPrice();
+        this.cuisine = food.getCuisine();
+        this.ingredients = food.getIngredients();
+        this.image = food.getImage();
+        this.availability = food.isAvailability();
     }
 }

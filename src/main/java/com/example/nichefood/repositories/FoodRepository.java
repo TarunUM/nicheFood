@@ -1,6 +1,7 @@
 package com.example.nichefood.repositories;
 
 import com.example.nichefood.models.Food;
+import com.example.nichefood.models.Hotel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -18,11 +19,8 @@ public interface FoodRepository
     @Query("SELECT f FROM Food f WHERE f.name = ?1 AND f.hotel_id = ?2")
     Optional<Food> findByFoodAndHotelId(String foodName, String hotelId);
 
-    @Query("SELECT f FROM Food f WHERE f.id = ?1")
-    Optional<Food> findByHotel(String hotelId);
-
     @Query("SELECT f FROM Food f WHERE f.hotel_id = ?1")
-    List<Food> findByHotelId(String hotelId);
+    List<Food> findByHotel(String hotelId);
 
     @Query("SELECT f FROM Food f WHERE f.cuisine = ?1")
     List<Food> findByCuisine(String cuisine);
