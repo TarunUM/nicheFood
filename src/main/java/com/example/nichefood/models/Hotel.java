@@ -1,6 +1,6 @@
 package com.example.nichefood.models;
 
-import com.example.nichefood.models.users.Address;
+import com.example.nichefood.models.utils.Address;
 import jakarta.persistence.*;
 import lombok.*;
 

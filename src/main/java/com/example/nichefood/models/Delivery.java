@@ -20,7 +20,7 @@ public class Delivery {
 
     @OneToOne
     @JoinColumn(name = "order_id")
-    private foodOrders orderId;
+    private FoodOrders orderId;
 
     @OneToOne
     @JoinColumn(name = "driver_id")

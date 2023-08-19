@@ -1,6 +1,6 @@
 package com.example.nichefood.models.users;
 
-import com.example.nichefood.models.User;
+import com.example.nichefood.models.utils.Address;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;

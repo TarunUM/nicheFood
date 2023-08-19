@@ -2,7 +2,7 @@ package com.example.nichefood.Configurations.security;
 
 // It holds all the beans and configurations
 
-import com.example.nichefood.repositories.UserRepository;
+import com.example.nichefood.repositories.users.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

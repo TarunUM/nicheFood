@@ -2,8 +2,8 @@ package com.example.nichefood.Configurations.security;
 
 import com.example.nichefood.controllers.interfaces.RegisterRequest;
 import com.example.nichefood.models.enums.Role;
-import com.example.nichefood.models.User;
-import com.example.nichefood.repositories.UserRepository;
+import com.example.nichefood.models.users.User;
+import com.example.nichefood.repositories.users.UserRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

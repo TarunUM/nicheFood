@@ -1,6 +1,6 @@
 package com.example.nichefood.controllers.interfaces;
 
-import com.example.nichefood.models.users.Address;
+import com.example.nichefood.models.utils.Address;
 import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

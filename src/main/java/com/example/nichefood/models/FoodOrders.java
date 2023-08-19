@@ -12,7 +12,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @Builder
 @Entity
-public class foodOrders {
+public class FoodOrders {
     @Id
     @GeneratedValue(generator = "uuid2")
     @Column(columnDefinition = "BINARY(16)",

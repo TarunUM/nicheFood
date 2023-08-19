@@ -1,6 +1,5 @@
-package com.example.nichefood.models.users;
+package com.example.nichefood.models.utils;
 
-import com.example.nichefood.models.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

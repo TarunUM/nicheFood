@@ -1,4 +1,4 @@
-package com.example.nichefood.services;
+package com.example.nichefood.services.users;
 
 import com.example.nichefood.controllers.interfaces.AuthenticationResponse;
 import com.example.nichefood.controllers.interfaces.RegisterRequest;
