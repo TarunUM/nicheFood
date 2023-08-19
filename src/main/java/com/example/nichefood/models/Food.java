@@ -14,18 +14,28 @@ import java.util.UUID;
 @AllArgsConstructor
 public class Food {
     @Id
-    @Column(name = "food_id", nullable = false, updatable = false, unique = true)
-    private String id;
+    @Column(name = "food_id", nullable = false,
+            updatable = false, unique = true,
+            columnDefinition = "BINARY(16)")
+    @GeneratedValue(generator = "uuid2")
+    private UUID id;
 
-    @Column(name = "hotel_id", nullable = false)
-    private String hotel_id;
+    @ManyToOne
+    @JoinColumn(name = "hotel_id")
+    private Hotel hotel_id;
 
     @Column(name = "name", nullable = false)
     private String name;
 
     private String description;
+
+    @Column(name = "price", nullable = false)
     private double price;
+
+    @Column(name = "cuisine", nullable = false)
     private String cuisine;
+
+    @Column(name = "ingredients", nullable = false)
     private String ingredients;
 
     @Lob
@@ -33,35 +43,4 @@ public class Food {
 
     @Column(name = "availability", nullable = false, columnDefinition = "boolean default true")
     private boolean availability;
-
-    public Food(String hotel_id,
-                String name,
-                String description,
-                double price,
-                String cuisine,
-                String ingredients,
-                List<String> image,
-                boolean availability) {
-        this.id = UUID.randomUUID().toString();
-        this.hotel_id = hotel_id;
-        this.name = name;
-        this.description = description;
-        this.price = price;
-        this.cuisine = cuisine;
-        this.ingredients = ingredients;
-        this.image = image;
-        this.availability = availability;
-    }
-
-    public Food(Food food){
-        this.id = UUID.randomUUID().toString();
-        this.hotel_id = food.getHotel_id();
-        this.name = food.getName();
-        this.description = food.getDescription();
-        this.price = food.getPrice();
-        this.cuisine = food.getCuisine();
-        this.ingredients = food.getIngredients();
-        this.image = food.getImage();
-        this.availability = food.isAvailability();
-    }
 }

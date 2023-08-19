@@ -1,7 +1,7 @@
 package com.example.nichefood.Configurations.security;
 
 import com.example.nichefood.controllers.interfaces.RegisterRequest;
-import com.example.nichefood.models.Role;
+import com.example.nichefood.models.enums.Role;
 import com.example.nichefood.models.User;
 import com.example.nichefood.repositories.UserRepository;
 import org.springframework.boot.CommandLineRunner;
@@ -24,7 +24,7 @@ public class UserConfig {
                     "test1234",
                     "Admin",
                     "1234567890",
-                    "123 Main St, City"
+                    null
             );
 
             RegisterRequest user2 = new RegisterRequest(
@@ -32,7 +32,7 @@ public class UserConfig {
                     "test1234",
                     "Tarun",
                     "1234567890",
-                    "123 Main St, City"
+                    null
             );
 
             RegisterRequest user3 = new RegisterRequest(
@@ -40,18 +40,17 @@ public class UserConfig {
                     "test1234",
                     "User",
                     "1234567890",
-                    "123 Main St, City"
+                    null
             );
 
             for (RegisterRequest user : List.of(user1, user2, user3)) {
                 var newUser = User.builder()
-                        .id(UUID.randomUUID().toString())
+                        .id(UUID.randomUUID())
                         .email(user.getEmail())
                         .password(passwordEncoder.encode(user.getPassword()))
                         .role(Role.USER)
                         .name(user.getName())
                         .phone(user.getPhone())
-                        .address(user.getAddress())
                         .createdAt(new Date())
                         .build();
 

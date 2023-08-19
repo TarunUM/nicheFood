@@ -4,7 +4,7 @@ import com.example.nichefood.Configurations.security.JwtService;
 import com.example.nichefood.controllers.interfaces.AuthenticationResponse;
 import com.example.nichefood.controllers.interfaces.RegisterRequest;
 import com.example.nichefood.controllers.interfaces.loginRequest;
-import com.example.nichefood.models.Role;
+import com.example.nichefood.models.enums.Role;
 import com.example.nichefood.models.User;
 import com.example.nichefood.repositories.UserRepository;
 import com.example.nichefood.services.AuthService;
@@ -28,13 +28,12 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public AuthenticationResponse register(RegisterRequest request) {
         User user = User.builder()
-                .id(UUID.randomUUID().toString())
+                .id(UUID.randomUUID())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .role(Role.USER)
                 .name(request.getName())
                 .phone(request.getPhone())
-                .address(request.getAddress())
                 .createdAt(new Date())
                 .build();
 

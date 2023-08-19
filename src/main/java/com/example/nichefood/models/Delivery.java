@@ -1,25 +1,39 @@
 package com.example.nichefood.models;
 
-import lombok.Getter;
-import lombok.Setter;
+import com.example.nichefood.models.users.Drivers;
+import jakarta.persistence.*;
+import lombok.*;
 
 import java.util.Date;
 import java.util.UUID;
 
-@Getter
-@Setter
+@Data
+@RequiredArgsConstructor
+@AllArgsConstructor
+@Builder
+@Entity
 public class Delivery {
-    private String id;
-    private String orderId;
-    private String driverId;
+    @Id
+    @GeneratedValue(generator = "uuid2")
+    @Column(columnDefinition = "BINARY(16)")
+    private UUID id;
+
+    @OneToOne
+    @JoinColumn(name = "order_id")
+    private foodOrders orderId;
+
+    @OneToOne
+    @JoinColumn(name = "driver_id")
+    private Drivers driverId;
+
+    @Column(nullable = false)
     private String deliveryStatus;
     private Date deliveryTime;
 
-    public Delivery(String orderId, String driverId, String deliveryStatus, Date deliveryTime) {
-        this.id = UUID.randomUUID().toString();
-        this.orderId = orderId;
-        this.driverId = driverId;
-        this.deliveryStatus = deliveryStatus;
-        this.deliveryTime = deliveryTime;
+
+    private enum Status{
+        PickUp,
+        Delivering,
+        Delivered
     }
 }

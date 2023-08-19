@@ -1,5 +1,7 @@
 package com.example.nichefood.controllers.interfaces;
 
+import com.example.nichefood.models.users.Address;
+import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,7 +16,9 @@ public class RegisterRequest {
     private String password;
     private String name;
     private String phone;
-    private String address;
+
+    @ManyToOne
+    private Address address;
 
     public String getEmail() {
         return email;

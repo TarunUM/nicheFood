@@ -1,5 +1,6 @@
 package com.example.nichefood.models;
 
+import com.example.nichefood.models.users.Address;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -17,52 +18,39 @@ import java.util.*;
 @AllArgsConstructor
 public class Hotel {
     @Id
-    @Column(name = "hotel_id", nullable = false, updatable = false)
-    private String hotel_id;
+    @GeneratedValue(generator = "uuid2")
+    @Column(
+            name = "hotel_id",
+            columnDefinition = "BINARY(16)",
+            nullable = false, updatable = false
+    )
+    private UUID hotel_id;
+
     private String hotel_name;
-    private String address;
+
+    @ManyToOne
+    private Address address;
+
     private String phone;
+
+    @Column(name = "email", nullable = false)
     private String email;
-    private double rating;
+    @Column(columnDefinition = "")
+    private double rating = 0.0;
+
+    @Column(nullable = false)
     private String city;
+
+    @Column(columnDefinition = "TEXT")
     private String description;
+
     @Lob
     private List<String> image;
-    private Date createdAt = new Date();
 
+    @Column(nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    private Date createdAt;
 
-    public Hotel(String hotel_id,
-                 String hotel_name,
-                 String address,
-                 String phone,
-                 String email,
-                 double rating,
-                 String city,
-                 String description,
-                 List<String> image) {
-        this.hotel_id = hotel_id;
-        this.hotel_name = hotel_name;
-        this.address = address;
-        this.phone = phone;
-        this.email = email;
-        this.rating = rating;
-        this.city = city;
-        this.description = description;
-        this.image = image;
-        this.createdAt = new Date();
-    }
-
-    public Hotel(Hotel hotel){
-        this.hotel_id = UUID.randomUUID().toString();
-        this.hotel_name = hotel.getHotel_name();
-        this.address = hotel.getAddress();
-        this.phone = hotel.getPhone();
-        this.email = hotel.getEmail();
-        this.rating = hotel.getRating();
-        this.city = hotel.getCity();
-        this.description = hotel.getDescription();
-        this.image = hotel.getImage();
-        this.createdAt = new Date();
-    }
+    @OneToMany(mappedBy = "hotel_id", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Food> foodList = new ArrayList<>();
 
 }
