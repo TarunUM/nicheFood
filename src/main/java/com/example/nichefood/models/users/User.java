@@ -36,15 +36,11 @@ public class User implements UserDetails {
     private String email;
 
     @Column(nullable = false)
-    @Max(16)
-    @Min(8)
-    @Pattern(regexp = "/^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm")
     private String password;
 
     @Column(nullable = false)
     private String name;
 
-    @Pattern(regexp = "^(\\+91|0|)\\d{9,10}$")
     private String phone;
 
     @Enumerated(EnumType.STRING)
@@ -52,6 +48,9 @@ public class User implements UserDetails {
 
     @Column(nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private Date createdAt;
+
+
+    // Constructors, Getters, Setters, Equals, HashCode, ToString
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

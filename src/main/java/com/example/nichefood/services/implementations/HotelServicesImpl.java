@@ -1,153 +1,212 @@
 package com.example.nichefood.services.implementations;
 
-import com.example.nichefood.exceptions.HotelExceptions;
+import com.example.nichefood.controllers.interfaces.ApiResponse;
+import com.example.nichefood.controllers.interfaces.hotel.HotelRequest;
+import com.example.nichefood.exceptions.GeneralExceptions;
 import com.example.nichefood.models.Hotel;
+import com.example.nichefood.models.utils.Address;
 import com.example.nichefood.repositories.HotelRepository;
 import com.example.nichefood.services.HotelServices;
-import jakarta.persistence.Transient;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import java.beans.Transient;
+import java.time.Instant;
+import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
+@RequiredArgsConstructor
 @Service
 public class HotelServicesImpl implements HotelServices {
-//
-//    private final HotelRepository hotelRepository;
-//
-//    @Autowired
-//    public HotelServicesImpl(HotelRepository hotelRepository) {
-//        this.hotelRepository = hotelRepository;
-//    }
-//
-//    @Override
-//    public List<Hotel> getAllHotels() {
-//        try {
-//            return hotelRepository.findAll();
-//        } catch (Exception e) {
-//            throw new HotelExceptions("Error while getting all hotels", HttpStatus.INTERNAL_SERVER_ERROR);
-//        }
-//    }
-//
-//    @Override
-//    public Hotel getHotelById(String hotel_id) {
-//        try {
-//            return hotelRepository.findById(hotel_id).orElseThrow(
-//                    () -> new HotelExceptions("Hotel not found", HttpStatus.NOT_FOUND)
-//            );
-//        } catch (Exception e) {
-//            throw new HotelExceptions(e.getLocalizedMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
-//        }
-//    }
-//
-//    @Override
-//    public List<Hotel> getHotelByName(String hotel_name) {
-//        try {
-//            String[] hotelNameArray = hotel_name.split(",");
-//            List<Hotel> hotelList = new ArrayList<>();
-//            for (String hotelName : hotelNameArray) {
-//                hotelName = hotelName.trim();
-//                hotelList.addAll(hotelRepository.findByHotelName(hotelName));
-//            }
-//            return hotelList;
-//        } catch (Exception e) {
-//            throw new HotelExceptions("Hotel not found", HttpStatus.NOT_FOUND);
-//        }
-//    }
-//
-//    @Override
-//    public List<Hotel> getHotelByCity(String city) {
-//        try {
-//            String[] cityArray = city.split(",");
-//            List<Hotel> hotelList = new ArrayList<>();
-//            for (String city1 : cityArray) {
-//                city1 = city1.trim();
-//                hotelList.addAll(hotelRepository.findByCity(city1));
-//            }
-//            return hotelList;
-//        } catch (Exception e) {
-//            throw new HotelExceptions("Hotel not found", HttpStatus.NOT_FOUND);
-//        }
-//    }
-//
-//    @Override
-//    public Hotel addHotel(Hotel hotel) {
-//        try {
-//            return hotelRepository.saveAndFlush(new Hotel(hotel));
-//        } catch (Exception e) {
-//            throw new HotelExceptions("Error while adding hotel", HttpStatus.INTERNAL_SERVER_ERROR);
-//        }
-//    }
-//
-//    @Override
-//    public String addHotelList(List<Hotel> hotelList) {
-//        try {
-//            int totalItemsAdded = 0;
-//            List<String> existingHotels = new ArrayList<>();
-//            for (Hotel hotel : hotelList) {
-//                if (!hotelRepository.findByHotelIdAndEmail(hotel.getHotel_name(), hotel.getEmail()).isEmpty()) {
-//                    existingHotels.add(hotel.getHotel_name());
-//                } else {
-//                    hotelRepository.saveAndFlush(new Hotel(hotel));
-//                    totalItemsAdded++;
-//                }
-//            }
-//            if (totalItemsAdded == hotelList.size()){
-//                return "Successfully added all hotels";
-//            }
-//            return "Successfully added " + totalItemsAdded + " hotels. " + existingHotels + " already exists";
-//        } catch (Exception e) {
-//            throw new HotelExceptions("Error while adding hotel list", HttpStatus.INTERNAL_SERVER_ERROR);
-//        }
-//    }
-//
-//    @Override
-//    @Transient
-//    public Hotel updateHotel(String id,Hotel hotel) {
-//        try {
-//            if (hotelRepository.findById(id).isEmpty()){
-//                throw new HotelExceptions("Hotel not found", HttpStatus.NOT_FOUND);
-//            }
-//            Hotel hotel1 = hotelRepository.findById(id).get();
-//            if (hotel.getHotel_name() != null && !hotel.getHotel_name().equals(hotel1.getHotel_name())){
-//                hotel1.setHotel_name(hotel.getHotel_name());
-//            }
-//            if (hotel.getAddress() != null && !hotel.getAddress().equals(hotel1.getAddress())){
-//                hotel1.setAddress(hotel.getAddress());
-//            }
-//            if (hotel.getPhone() != null && !hotel.getPhone().equals(hotel1.getPhone())){
-//                hotel1.setPhone(hotel.getPhone());
-//            }
-//            if (hotel.getEmail() != null && !hotel.getEmail().equals(hotel1.getEmail())){
-//                hotel1.setEmail(hotel.getEmail());
-//            }
-//            if (hotel.getRating() != 0 && hotel.getRating() != hotel1.getRating()){
-//                hotel1.setRating(hotel.getRating());
-//            }
-//            if (hotel.getCity() != null && !hotel.getCity().equals(hotel1.getCity())){
-//                hotel1.setCity(hotel.getCity());
-//            }
-//            if (hotel.getDescription() != null && !hotel.getDescription().equals(hotel1.getDescription())){
-//                hotel1.setDescription(hotel.getDescription());
-//            }
-//            if (hotel.getImage() != null && !hotel.getImage().equals(hotel1.getImage())){
-//                hotel1.setImage(hotel.getImage());
-//            }
-//
-//            return hotelRepository.save(hotel1);
-//        } catch (Exception e) {
-//            throw new HotelExceptions("Error while updating hotel", HttpStatus.INTERNAL_SERVER_ERROR);
-//        }
-//    }
-//
-//    @Override
-//    public void deleteHotelById(String hotel_id) {
-//        try {
-//            hotelRepository.deleteById(hotel_id);
-//        } catch (Exception e) {
-//            throw new HotelExceptions("Error while deleting hotel", HttpStatus.INTERNAL_SERVER_ERROR);
-//        }
-//    }
+    private final HotelRepository hotelRepository;
+
+    @Override
+    public ApiResponse<List<Hotel>> getAllHotels() {
+        try {
+            return ApiResponse.<List<Hotel>>builder()
+                    .status(HttpStatus.OK)
+                    .timestamp(Instant.now())
+                    .message("Successfully get all hotels")
+                    .length(hotelRepository.findAll().size())
+                    .data(hotelRepository.findAll())
+                    .build();
+        } catch (Exception e) {
+            throw new GeneralExceptions("Error while getting all hotels");
+        }
+    }
+
+    @Override
+    public ApiResponse<Hotel> getHotelById(String hotel_id) {
+        try {
+            return ApiResponse.<Hotel>builder()
+                    .status(HttpStatus.OK)
+                    .timestamp(Instant.now())
+                    .message("Successfully get hotel by id")
+                    .length(1)
+                    .data(hotelRepository.findById(UUID.fromString(hotel_id)).orElseThrow(
+                            () -> new GeneralExceptions(HttpStatus.NOT_FOUND,"Hotel not found" + hotel_id)))
+                    .build();
+        } catch (RuntimeException e) {
+            throw new GeneralExceptions("Error while getting hotel");
+        }
+    }
+
+    @Override
+    public ApiResponse<List<Hotel>> getHotelByName(String hotel_name) {
+        try {
+            return ApiResponse.<List<Hotel>>builder()
+                    .status(HttpStatus.OK)
+                    .timestamp(Instant.now())
+                    .message("Successfully get hotel by name")
+                    .length(hotelRepository.findByName(hotel_name).size())
+                    .data(hotelRepository.findByName(hotel_name))
+                    .build();
+        } catch (Exception e) {
+            throw new GeneralExceptions("Error while getting hotel by name");
+        }
+    }
+
+    @Override
+    public ApiResponse<List<Hotel>> getHotelByCity(String city) {
+        try {
+            return ApiResponse.<List<Hotel>>builder()
+                    .status(HttpStatus.OK)
+                    .timestamp(Instant.now())
+                    .message("Successfully get hotel by city")
+                    .length(hotelRepository.findByCity(city).size())
+                    .data(hotelRepository.findByCity(city))
+                    .build();
+        } catch (Exception e) {
+            throw new GeneralExceptions("Error while getting hotel by city");
+        }
+    }
+
+    @Override
+    public ApiResponse<Hotel> addHotel(HotelRequest hotel) {
+        try {
+            Hotel newHotel = Hotel.builder()
+                    .hotel_name(hotel.getHotel_name())
+                    .phone(hotel.getPhone())
+                    .description(hotel.getDescription())
+                    .image(hotel.getImage())
+                    .email(hotel.getEmail())
+                    .address(Address.builder()
+                            .city(hotel.getCity())
+                            .country(hotel.getCountry())
+                            .street(hotel.getStreet())
+                            .state(hotel.getState())
+                            .zipCode(hotel.getZipCode())
+                            .build())
+                    .createdAt(new Date())
+                    .build();
+
+            return ApiResponse.<Hotel>builder()
+                    .status(HttpStatus.CREATED)
+                    .timestamp(Instant.now())
+                    .message("Successfully added hotel")
+                    .length(1)
+                    .data(hotelRepository.save(newHotel))
+                    .build();
+
+        } catch (Exception e) {
+            throw new GeneralExceptions("Error while adding hotel");
+        }
+    }
+
+    @Override
+    public ApiResponse<String> addHotelList(List<HotelRequest> hotelList) {
+        try {
+            for (HotelRequest hotel : hotelList) {
+                addHotel(hotel);
+            }
+            return ApiResponse.<String>builder()
+                    .status(HttpStatus.CREATED)
+                    .timestamp(Instant.now())
+                    .message("Successfully added hotel list")
+                    .length(hotelList.size())
+                    .data("Successfully added hotel list")
+                    .build();
+        } catch (Exception e) {
+            throw new GeneralExceptions("Error while adding hotel list");
+        }
+    }
+
+    @Override
+    @Transient
+    public ApiResponse<Hotel> updateHotel(String id, HotelRequest hotel) {
+        try {
+            Hotel oldHotel = hotelRepository.findById(
+                    UUID.fromString(id)).orElseThrow(
+                            () -> new GeneralExceptions("Hotel not found")
+            );
+
+            Address address = oldHotel.getAddress();
+            if (hotel.getZipCode() != null && !hotel.getZipCode().equals("")){
+                address.setZipCode(hotel.getZipCode());
+            }
+            if (hotel.getCity() != null && !hotel.getCity().equals("")){
+                address.setCity(hotel.getCity());
+            }
+            if (hotel.getCountry() != null && !hotel.getCountry().equals("")){
+                address.setCountry(hotel.getCountry());
+            }
+            if (hotel.getState() != null && !hotel.getState().equals("")){
+                address.setState(hotel.getState());
+            }
+            if (hotel.getStreet() != null && !hotel.getStreet().equals("")){
+                address.setStreet(hotel.getStreet());
+            }
+            if (hotel.getHotel_name() != null && !hotel.getHotel_name().equals("")){
+                oldHotel.setHotel_name(hotel.getHotel_name());
+            }
+            if (address != null){
+                oldHotel.setAddress(address);
+            }
+            if (hotel.getPhone() != null && !hotel.getPhone().equals("")){
+                oldHotel.setPhone(hotel.getPhone());
+            }
+            if (hotel.getEmail() != null && !hotel.getEmail().equals("")){
+                oldHotel.setEmail(hotel.getEmail());
+            }
+            if (hotel.getDescription() != null && !hotel.getDescription().equals("")){
+                oldHotel.setDescription(hotel.getDescription());
+            }
+            if (hotel.getImage() != null){
+                List<String> images = oldHotel.getImage();
+                images.addAll(hotel.getImage());
+                oldHotel.setImage(images);
+            }
+
+            return ApiResponse.<Hotel>builder()
+                    .status(HttpStatus.OK)
+                    .timestamp(Instant.now())
+                    .message("Successfully updated hotel")
+                    .length(1)
+                    .data(hotelRepository.save(oldHotel))
+                    .build();
+
+        } catch (Exception e) {
+            throw new GeneralExceptions("Error while updating hotel");
+        }
+    }
+
+    @Override
+    public void deleteHotelById(String hotel_id) {
+        try {
+            if (!hotelRepository.existsById(UUID.fromString(hotel_id))){
+                throw new GeneralExceptions(HttpStatus.NOT_FOUND,"Hotel not found");
+            }
+
+            hotelRepository.deleteById(UUID.fromString(hotel_id));
+            ApiResponse.<String>builder()
+                    .status(HttpStatus.OK)
+                    .timestamp(Instant.now())
+                    .message("Successfully deleted hotel")
+                    .build();
+        } catch (Exception e) {
+            throw new GeneralExceptions("Error while deleting hotel");
+        }
+    }
 }

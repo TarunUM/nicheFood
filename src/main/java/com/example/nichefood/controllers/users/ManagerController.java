@@ -8,4 +8,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @RequestMapping(path = "api/v1/managers")
 public class ManagerController {
+
+
 }

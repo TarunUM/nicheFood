@@ -1,9 +1,9 @@
 package com.example.nichefood.services.implementations.users;
 
 import com.example.nichefood.Configurations.security.JwtService;
-import com.example.nichefood.controllers.interfaces.AuthenticationResponse;
-import com.example.nichefood.controllers.interfaces.RegisterRequest;
-import com.example.nichefood.controllers.interfaces.loginRequest;
+import com.example.nichefood.controllers.interfaces.auth.AuthenticationResponse;
+import com.example.nichefood.controllers.interfaces.auth.RegisterRequest;
+import com.example.nichefood.controllers.interfaces.auth.loginRequest;
 import com.example.nichefood.models.enums.Role;
 import com.example.nichefood.models.users.User;
 import com.example.nichefood.repositories.users.UserRepository;

@@ -1,4 +1,4 @@
-package com.example.nichefood.controllers.interfaces;
+package com.example.nichefood.controllers.interfaces.auth;
 
 import lombok.Builder;
 import lombok.Data;

@@ -1,4 +1,4 @@
-package com.example.nichefood.controllers.interfaces;
+package com.example.nichefood.controllers.interfaces.auth;
 
 import com.example.nichefood.models.utils.Address;
 import jakarta.persistence.ManyToOne;
@@ -16,9 +16,6 @@ public class RegisterRequest {
     private String password;
     private String name;
     private String phone;
-
-    @ManyToOne
-    private Address address;
 
     public String getEmail() {
         return email;

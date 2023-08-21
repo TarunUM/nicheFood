@@ -1,8 +1,8 @@
 package com.example.nichefood.services.users;
 
-import com.example.nichefood.controllers.interfaces.AuthenticationResponse;
-import com.example.nichefood.controllers.interfaces.RegisterRequest;
-import com.example.nichefood.controllers.interfaces.loginRequest;
+import com.example.nichefood.controllers.interfaces.auth.AuthenticationResponse;
+import com.example.nichefood.controllers.interfaces.auth.RegisterRequest;
+import com.example.nichefood.controllers.interfaces.auth.loginRequest;
 
 public interface AuthService {
 

@@ -1,14 +1,13 @@
 package com.example.nichefood.models.users;
 
 import com.example.nichefood.models.Hotel;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+
+import java.util.UUID;
 
 @Data
 @RequiredArgsConstructor
@@ -17,7 +16,16 @@ import lombok.RequiredArgsConstructor;
 @Entity
 public class Manager {
     @Id
+    @GeneratedValue(generator = "uuid2")
+    @Column(
+            columnDefinition = "BINARY(16)",
+            nullable = false, updatable = false
+    )
+    private UUID id;
+
     @OneToOne
+    @PrimaryKeyJoinColumn
+    @MapsId
     private User manager;
     private String name;
     private String email;

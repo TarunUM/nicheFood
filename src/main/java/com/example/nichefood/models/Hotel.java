@@ -26,20 +26,18 @@ public class Hotel {
     )
     private UUID hotel_id;
 
+    @Column(name = "hotel_name", nullable = false)
     private String hotel_name;
 
-    @ManyToOne
+    @Embedded
     private Address address;
 
     private String phone;
 
     @Column(name = "email", nullable = false)
     private String email;
-    @Column(columnDefinition = "")
-    private double rating = 0.0;
 
-    @Column(nullable = false)
-    private String city;
+    private double rating = 0.0;
 
     @Column(columnDefinition = "TEXT")
     private String description;
@@ -48,7 +46,7 @@ public class Hotel {
     private List<String> image;
 
     @Column(nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-    private Date createdAt;
+    private Date createdAt = new Date();
 
     @OneToMany(mappedBy = "hotel_id", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Food> foodList = new ArrayList<>();

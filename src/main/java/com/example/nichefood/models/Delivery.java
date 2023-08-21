@@ -22,14 +22,14 @@ public class Delivery {
     @JoinColumn(name = "order_id")
     private FoodOrders orderId;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "driver_id")
     private Drivers driverId;
 
     @Column(nullable = false)
     private String deliveryStatus;
-    private Date deliveryTime;
 
+    private Date deliveryTime;
 
     private enum Status{
         PickUp,
