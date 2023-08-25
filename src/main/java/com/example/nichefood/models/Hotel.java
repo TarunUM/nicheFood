@@ -1,6 +1,7 @@
 package com.example.nichefood.models;
 
 import com.example.nichefood.models.utils.Address;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -48,7 +49,9 @@ public class Hotel {
     @Column(nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private Date createdAt = new Date();
 
-    @OneToMany(mappedBy = "hotel_id", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    // JsonIgnore is used to prevent infinite recursion
+    @JsonIgnore
+    @OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Food> foodList = new ArrayList<>();
 
 }

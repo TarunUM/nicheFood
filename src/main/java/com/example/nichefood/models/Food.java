@@ -21,8 +21,11 @@ public class Food {
     private UUID id;
 
     @ManyToOne
-    @JoinColumn(name = "hotel_id")
-    private Hotel hotel_id;
+    @JoinColumn(name = "hotel_id", nullable = false,
+            referencedColumnName = "hotel_id",
+            foreignKey = @ForeignKey(name = "fk_hotel_id"),
+            columnDefinition = "BINARY(16)")
+    private Hotel hotel;
 
     @Column(name = "name", nullable = false)
     private String name;
