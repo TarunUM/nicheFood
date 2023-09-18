@@ -4,6 +4,8 @@ import com.example.nichefood.controllers.interfaces.auth.AuthenticationResponse;
 import com.example.nichefood.controllers.interfaces.auth.RegisterRequest;
 import com.example.nichefood.controllers.interfaces.auth.loginRequest;
 import com.example.nichefood.services.implementations.users.AuthServiceImpl;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,20 +17,38 @@ public class AuthenticationController {
 
     private final AuthServiceImpl authService;
 
-    @GetMapping("/register")
+    @PostMapping("/register")
     public ResponseEntity<AuthenticationResponse> register(
-            @RequestBody RegisterRequest request
+            @RequestBody RegisterRequest request,
+            HttpServletResponse response
     ) {
         // todo: implement register
-        return ResponseEntity.ok(authService.register(request));
+        var jwt = authService.register(request);
+        String token = jwt.getToken();
+
+        Cookie cookie = new Cookie("jwt", token);
+        cookie.setHttpOnly(true);
+        cookie.setSecure(true);
+
+        response.addCookie(cookie);
+        return ResponseEntity.ok(jwt);
     }
 
-    @GetMapping("/login")
+    @PostMapping("/login")
     public ResponseEntity<AuthenticationResponse> login(
-            @RequestBody loginRequest request
+            @RequestBody loginRequest request,
+            HttpServletResponse response
     ) {
         // todo: implement login
-        return ResponseEntity.ok(authService.login(request));
+        var jwt = authService.login(request);
+        String token = jwt.getToken();
+
+        Cookie cookie = new Cookie("jwt", token);
+        cookie.setHttpOnly(true);
+        cookie.setSecure(true);
+
+        response.addCookie(cookie);
+        return ResponseEntity.ok(jwt);
     }
 
 }

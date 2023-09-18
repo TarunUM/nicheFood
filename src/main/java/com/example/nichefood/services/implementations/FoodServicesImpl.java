@@ -135,13 +135,16 @@ public class FoodServicesImpl implements FoodServices {
     @Override
     public ApiResponse<String> addFoodItemsList(List<FoodRequest> foodList) {
         try {
+            int added = 0;
             for (FoodRequest foodRequest: foodList) {
                 addFoodItem(foodRequest);
+                added++;
             }
             return ApiResponse.<String>builder()
                     .timestamp(Instant.now())
                     .message("Food items added successfully")
                     .status(HttpStatus.OK)
+                    .length(added)
                     .build();
         } catch(Exception e) {
             throw new GeneralExceptions("Error while adding food items");
