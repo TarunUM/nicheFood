@@ -1,10 +1,12 @@
 package com.example.nichefood.models;
 
 import com.example.nichefood.models.users.Customers;
+import com.example.nichefood.models.utils.OrderedFood;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 @Data
@@ -23,12 +25,8 @@ public class FoodOrders {
     @JoinColumn(name = "customer_id")
     private Customers customer;
 
-    @ManyToOne
-    @JoinColumn(name = "food_id")
-    private Food food;
-
-    @Column(nullable = false, updatable = false, columnDefinition = "int default 1")
-    private int quantity;
+    @Embedded
+    private OrderedFood[] foods;
 
     @Column(nullable = false, updatable = false)
     private float totalPrice;

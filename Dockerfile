@@ -1,4 +1,5 @@
-FROM ubuntu:latest
-LABEL authors="tarun"
-
-ENTRYPOINT ["top", "-b"]
+FROM openjdk:18-alpine
+WORKDIR /app
+COPY *.jar /app/
+EXPOSE 8080
+ENTRYPOINT ["java","-jar","*-jar"]
